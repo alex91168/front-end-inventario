@@ -1,1 +1,22 @@
-<p>header works!</p>
+<div class="header-container">
+    <div class="header-logo">
+        <img src="/logo.png" alt="dashboard-logo">
+        <span>Inventario</span>
+    </div>
+
+    <div class="header-user">
+        <div class="user-login" *ngIf="isLoggedin" else >
+            <span>Nome de usuario</span>
+            <i class="bi bi-caret-down-fill"></i>
+        </div>
+        <div class="user-login" *ngIf="!isLoggedin">
+            <span>Faça seu login</span>
+        </div>
+        <div class="header-configs">
+            <i class="bi bi-gear"></i>
+        </div>
+        <div class="help">
+            <i class="bi bi-question-circle"></i>
+        </div>
+    </div>
+</div>
