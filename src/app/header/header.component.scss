@@ -1,8 +1,8 @@
 .header-container{
     display: flex;
     flex-direction: row;
+    width: 100%;
     height: 5vh;
-    min-height: 40px;
     align-items: center;
     justify-content: space-between;
     .header-logo{
@@ -16,7 +16,7 @@
         padding-left: 20px;
         gap: 10px;
         img{
-            height: 100%;
+            height: 70%;
             object-fit: contain;
         }
     }
