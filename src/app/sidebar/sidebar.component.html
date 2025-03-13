@@ -1,8 +1,22 @@
-<div class="nav-sidebar">
-    <div class="buttom-sidebar">
-        <a routerLink="/">Dashboard</a>
-    </div>
-    <div class="buttom-sidebar">
-        <a routerLink="/inventario">Inventario</a>
+<div class="sidebar-container">
+    <div class="nav-sidebar">
+        <div 
+        class="buttom-sidebar" 
+        routerLink="/"
+        [class.active]="active === '/'"
+        (click)="setActive('/')"
+        >
+            <i class="bi bi-house"></i> 
+            <span>Dashboard</span>
+        </div>
+        <div 
+        class="buttom-sidebar" 
+        routerLink="/inventario"
+        [class.active]="active === '/inventario'"
+        (click) ="setActive('/inventario')"
+        >
+            <i class="bi bi-basket-fill"></i>
+            <span>Inventario</span>
+        </div>
     </div>
 </div>

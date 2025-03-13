@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component} from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,5 +9,12 @@ import { RouterModule } from '@angular/router';
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
-
+  active: string = "/";
+  constructor(private router: Router) {}
+  
+  setActive(link: string) {
+    this.active = link;
+    this.router.navigate([link]);
+    console.log(this.active);
+  }
 }

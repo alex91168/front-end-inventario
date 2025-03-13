@@ -1,7 +1,46 @@
-.nav-sidebar{
+.sidebar-container{
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: auto;
-    min-height: 150px;
+    height: 100%;
+    .nav-sidebar{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+        min-height: 150px;
+        .buttom-sidebar{
+            display: flex;
+            width: 100%;
+            height: auto;
+            min-height: 40px;
+            align-items: center;
+            padding-left: 10px;
+            position: relative;
+            gap: 30px;
+            color: white;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .buttom-sidebar:hover{
+            background-color: grey;
+        }
+        .buttom-sidebar::before{
+            content: "";
+            display: none;
+            background-color: rgb(40,112,154);
+            width: 5px;
+            left: 0;
+            height: 100%;
+            position: absolute;
+        }
+        .buttom-sidebar.active{
+            background-color: rgb(31,40,45);
+            color: rgb(40,112,154) ;
+        }
+        .buttom-sidebar.active::before {
+            display: block;
+        }
+    }
 }
