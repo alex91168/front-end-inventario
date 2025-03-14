@@ -1,8 +1,9 @@
 <div class="dashboard-box">
 
     <div class="graph-box">
-        <div class="graph-title">
-            <h2>Detalhes de vendas</h2>
+
+        <div class="title graph-title">
+            <h2>Detalhes dos produtos</h2>
         </div>
         <div class="graph-content">
             <div class="graph-text">
@@ -24,92 +25,102 @@
                 <p>grafico</p>
             </div>
         </div>
+        <!--   ///////////////   /-->
+
         <div class="top-seller-box">
-            <div class="top-seller-title">
+            <div class="title top-seller-title">
                 <h2>Itens mais vendidos</h2>
             </div>
 
             <div class="top-seller-content">
+
                 <div class="top-seller-item">
-                   <div>
-                        <img src="" alt="">
+                   <div class="top-seller-item-img">
+                        <img src="/produto.webp" alt="">
                    </div>
-                   <div>
-                        <p>300 vendidos</p>
+                   <div class="top-seller-item-details">
+                        <div class="product-name">
+                            <h4>Caixa Treinador Avançado Pokémon Go - COPAG - Deck de Cartas</h4>
+                        </div>
+                        <p>1300 vendidos</p>
                    </div>
                 </div>
-            </div>
-            <div class="top-seller-content">
                 <div class="top-seller-item">
-                   <div>
-                        <img src="" alt="">
-                   </div>
-                   <div>
-                        <p>300 vendidos</p>
-                   </div>
-                </div>
-            </div>
-            <div class="top-seller-content">
-                <div class="top-seller-item">
-                   <div>
-                        <img src="" alt="">
-                   </div>
-                   <div>
-                        <p>300 vendidos</p>
-                   </div>
-                </div>
-            </div>
-            <div class="top-seller-content">
-                <div class="top-seller-item">
-                   <div>
-                        <img src="" alt="">
-                   </div>
-                   <div>
-                        <p>300 vendidos</p>
-                   </div>
-                </div>
-            </div>
-            <div class="top-seller-content">
-                <div class="top-seller-item">
-                   <div>
-                        <img src="" alt="">
-                   </div>
-                   <div>
-                        <p>300 vendidos</p>
-                   </div>
-                </div>
+                    <div class="top-seller-item-img">
+                         <img src="/produto.webp" alt="">
+                    </div>
+                    <div class="top-seller-item-details">
+                         <div class="product-name">
+                             <h4>Caixa Treinador Avançado Pokémon Go - COPAG - Deck de Cartas</h4>
+                         </div>
+                         <p>1300 vendidos</p>
+                    </div>
+                 </div>
+                 <div class="top-seller-item">
+                    <div class="top-seller-item-img">
+                         <img src="/produto.webp" alt="">
+                    </div>
+                    <div class="top-seller-item-details">
+                         <div class="product-name">
+                             <h4>Caixa Treinador Avançado Pokémon Go - COPAG - Deck de Cartas</h4>
+                         </div>
+                         <p>1300 vendidos</p>
+                    </div>
+                 </div>
+                 <div class="top-seller-item">
+                    <div class="top-seller-item-img">
+                         <img src="/produto.webp" alt="">
+                    </div>
+                    <div class="top-seller-item-details">
+                         <div class="product-name">
+                             <h4>Caixa Treinador Avançado Pokémon Go - COPAG - Deck de Cartas</h4>
+                         </div>
+                         <p>1300 vendidos</p>
+                    </div>
+                 </div>
+                 <div class="top-seller-item">
+                    <div class="top-seller-item-img">
+                         <img src="/produto.webp" alt="">
+                    </div>
+                    <div class="top-seller-item-details">
+                         <div class="product-name">
+                             <h4>Caixa Treinador Avançado Pokémon Go - COPAG - Deck de Cartas</h4>
+                         </div>
+                         <p>1300 vendidos</p>
+                    </div>
+                 </div>
+
             </div>
 
         </div>
     </div>
 
+    <!--   ///////////////   /-->
+
     <div class="geralinfo-box">
 
         <div class="info-inventory">
-            <div class="info-inventory-title">
+            <div class="title info-inventory-title">
                 <h2>Detalhes de estoque</h2>
             </div>
             <div class="info-inventory-box">
                 <div class="info-inventory-details">
-                    <p>Quantidade de produtos no estoque</p>
+                    <p>Quantidade de produtos no estoque:</p>
                     <span>1000</span>
                 </div>
 
                 <div class="info-inventory-details">
-                    <p>Quantidade de produtos para receber</p>
+                    <p>Quantidade de produtos para receber:</p>
                     <span>100</span>
                 </div>
             </div>
         </div>
 
         <div class="info-sell">
-            <div class="info-sell-title">
-                <h2>Detalhes de vendas</h2>
+            <div class="title info-sell-title">
+                <h2>Detalhes de vendas(Mês.)</h2>
             </div>
-            <div class="info-sell-table">
-                <table>
-                </table>
-            </div>
+            <app-tabela-produtos></app-tabela-produtos>
         </div>
     </div>
 </div>

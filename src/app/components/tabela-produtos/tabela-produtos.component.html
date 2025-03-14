@@ -1,0 +1,19 @@
+<table class="tabela-produtos">
+    <thead>
+        <tr>
+            <th>Nome do produto</th>
+            <th>Preço(Un.)</th>
+            <th>Qnt. Vendidos</th>
+            <th>Valor Total</th>
+        </tr>
+    </thead>
+
+    <tbody *ngFor="let prod of produtos">
+        <tr>
+            <th>{{prod.nome}}</th>
+            <th>{{prod.preco}}</th>
+            <th>{{prod.quantidade}}</th>
+            <th>{{calcularTotal(prod.preco, prod.quantidade)}}</th>
+        </tr>
+    </tbody>
+</table>

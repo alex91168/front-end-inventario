@@ -1,7 +1,165 @@
 .dashboard-box{
     display: flex;
     flex-direction: row;
-    width: 100%;
+    width: 88vw;
     height: 100%;
+    .graph-box, .geralinfo-box{
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        height: 100%;
+        padding-top: 10px;
+        padding-left: 30px;
+    }
+    .title{
+        display: flex;
+        width: 100%;
+        height: auto;
+        padding: 10px 0 10px 0px;
+        h2{
+            font-weight: 400;
+            font-size: 18px;
+        }
+    }
+    .graph-box{
+        //
+        border-right: 1px solid rgb(126, 126, 126);
+        .graph-content{
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            height: 40%;
+            .graph-text, .graph{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                width: 50%;
+                height: 100%;
+                gap: 10%;
+                border-bottom: 1px solid rgb(126, 126, 126);
+            }
+            .graph-product-details{
+                display: flex;
+                width: 100%;
+                justify-content: space-between;
+                padding: 0 10px 0px 10px ;
+                color: rgb(82, 82, 82);
+                p{
+                    font-size: 14px;
+                    font-weight: 600;
+                }
+                span{
+                    color: black;
+                    font-size: 16px;
+                    font-weight: 700;
+                }
+            }
+            .graph{
+                align-items: center;
+                justify-content: center;
+            }
+        }
 
+        .top-seller-box{
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+            height: 100%;
+            .top-seller-title{
+                justify-content: center;
+                h2{
+                    font-size: 26px;
+                }
+            }
+            .top-seller-content{
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                width: 100%;
+                height: 70%; //mudar
+                padding-top: 30px;
+                .top-seller-item{
+                    display: flex;
+                    flex-direction: column;
+                    height: 60%;
+                    width: 150px;
+                    padding: 5px;
+                    .top-seller-item-img, .top-seller-item-details{
+                        display: flex;
+                        justify-content: center;
+                        width: 100%;
+                        height: 60%;
+                        img{
+                            width: 100%;
+                            object-fit: contain;
+                            background-color: transparent;
+                        }
+                    }
+                    .top-seller-item-details{
+                        height: 40%;
+                        flex-direction: column;
+                        justify-content: start;
+                        align-items: center;
+                        .product-name{
+                            display: flex;
+                            width: 100%;
+                            max-height: 50%;
+                            justify-content: center;
+                            h4{
+                                font-size: 12px;
+                                width: 100%; 
+                                display: block;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                word-break: break-word; 
+                                white-space: nowrap; 
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .geralinfo-box{
+        ////
+        padding-left: 0;
+        .info-inventory, .info-sell{
+            padding-left: 10px;
+        }
+        .info-inventory{
+            display: flex;
+            width: 100%;
+            height: 25%;
+            border-bottom: 1px solid rgb(126, 126, 126);
+            flex-direction: column;
+            .info-inventory-box{
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                height: 90%;
+                justify-content: center;
+                align-items: center;
+                gap: 20px;
+                .info-inventory-details{
+                    display: flex;
+                    width: 70%;
+                    align-items: center;
+                    justify-content: center;
+                    height: 40px;
+                    gap: 10%;
+                    border: 1px solid rgb(126, 126, 126);
+                    border-radius: 16px;
+                    background-color: rgb(240, 245, 247);
+                    p{
+                        font-size: 14px;
+                    }
+                    span{
+                        font-size: 18px;
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+    }
 }

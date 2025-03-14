@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { TabelaProdutosComponent } from '../components/tabela-produtos/tabela-produtos.component';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [],
+  standalone: true,
+  imports: [TabelaProdutosComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
