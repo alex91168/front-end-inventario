@@ -3,59 +3,15 @@
 </div>
 
 <div class="top-seller-content">
-    <div class="top-seller-item">
-       <div class="top-seller-item-img">
-            <img src="/produto.webp" alt="">
-       </div>
-       <div class="top-seller-item-details">
-            <div class="product-name">
-                <h4>Caixa Treinador Avançado Pokémon Go - COPAG - Deck de Cartas</h4>
-            </div>
-            <p>1300 vendidos</p>
-       </div>
-    </div>
-    <div class="top-seller-item">
+     <div class="top-seller-item" *ngFor="let product of products">
         <div class="top-seller-item-img">
-             <img src="/produto.webp" alt="">
+             <img [src]="product.img" [alt]="product.name">
         </div>
         <div class="top-seller-item-details">
              <div class="product-name">
-                 <h4>Caixa Treinador Avançado Pokémon Go - COPAG - Deck de Cartas</h4>
+                 <h4>{{ product.name }}</h4>
              </div>
-             <p>1300 vendidos</p>
-        </div>
-     </div>
-     <div class="top-seller-item">
-        <div class="top-seller-item-img">
-             <img src="/produto.webp" alt="">
-        </div>
-        <div class="top-seller-item-details">
-             <div class="product-name">
-                 <h4>Caixa Treinador Avançado Pokémon Go - COPAG - Deck de Cartas</h4>
-             </div>
-             <p>1300 vendidos</p>
-        </div>
-     </div>
-     <div class="top-seller-item">
-        <div class="top-seller-item-img">
-             <img src="/produto.webp" alt="">
-        </div>
-        <div class="top-seller-item-details">
-             <div class="product-name">
-                 <h4>Caixa Treinador Avançado Pokémon Go - COPAG - Deck de Cartas</h4>
-             </div>
-             <p>1300 vendidos</p>
-        </div>
-     </div>
-     <div class="top-seller-item">
-        <div class="top-seller-item-img">
-             <img src="/produto.webp" alt="">
-        </div>
-        <div class="top-seller-item-details">
-             <div class="product-name">
-                 <h4>Caixa Treinador Avançado Pokémon Go - COPAG - Deck de Cartas</h4>
-             </div>
-             <p>1300 vendidos</p>
+             <p>{{ product.vendas }}</p>
         </div>
      </div>
 </div>

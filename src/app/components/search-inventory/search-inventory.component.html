@@ -1,0 +1,56 @@
+<div class="title">
+    <h2>Pesquisar</h2>
+</div>
+
+<div class="seach-input">
+    <input type="search" placeholder="Pesquisar por produto">
+    <button>Pesquisar</button>
+</div>
+
+<div class="filtros">
+    <div class="adicionar-produto">
+        <div class="adicionar">
+            <button (click)="AdicionarProdutos()">Adicionar produto</button>
+        </div>
+        <div class="planilha">
+            <button>Enviar arquivo csv</button>
+        </div>
+    </div>
+
+    <div>
+        <span>Filtros</span> <!--Filtros pop-up-->
+    </div>
+</div>
+
+<div class="adicionar-produto-popup" 
+[class.active]="adicionarProdutos === true"
+>
+    <div class="close" (click)="AdicionarProdutos()">
+        <i class="bi bi-x-lg"></i>
+    </div>
+    <div class="form-product">
+        <form [formGroup]="formularioProdutos" (ngSubmit)="formSubmit()">
+            <div>
+                <label for="name">Nome do produto</label>
+                <input id="name" formControlName="name">
+            </div>
+            <div>
+                <label for="price">Valor unitario</label>
+                <input id="price" formControlName="price">
+            </div>
+            <div>
+                <label for="quantity">Quantidade</label>
+                <input id="quantity" formControlName="quantity">
+            </div>
+            <div>
+                <label for="type">Tipo</label>
+                <input id="type" formControlName="type">
+            </div>
+            <div>
+                <label for="description">Descrição</label>
+                <input id="description" formControlName="description">
+            </div>
+            <button type="submit">Adicionar Produto</button>
+        </form>
+    </div>
+</div>

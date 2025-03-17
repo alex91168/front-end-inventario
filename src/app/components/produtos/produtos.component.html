@@ -1,0 +1,45 @@
+<div class="title">
+    <h2>Lista de produtos</h2>
+</div>
+
+
+<div class="product-list">
+    <div class="product-box" *ngFor="let product of products"> 
+        <div class="img-product">
+            <img [src]="product.img" alt="">
+        </div>
+        <div class="info-product">
+            <div>
+                <p>{{ product.name }}</p>
+            </div>
+            <div class="product-popup">
+                <button (click)="mostrarDetalhes(product.id)">Mostrar mais detalhes</button>
+            </div>
+        </div>
+
+        <div class="product-details" [class.active]="isActive === product.id" *ngIf="selectedProduct">
+            <div class="title product-details"> 
+                <h2>Detalhes do produto</h2> 
+            </div> 
+            <div class="details" [class.active]="isDetalhesActive">
+                <div>
+                    <p>Id: {{ selectedProduct.id }}</p>
+                    <i class="bi bi-pencil"></i>
+                </div>
+                <div>
+                    <p>Nome:{{ selectedProduct.name }}</p>
+                    <i class="bi bi-pencil" (click)="editarDetalhes();"></i>
+                </div>
+            </div>
+            <div class="editar" [class.active]="isDetalhesActive">
+                <div>
+                    <label for="name">Nome:</label>
+                    <input type="text" [value]="selectedProduct.name">
+                </div>
+                <button>Salvar</button>
+                <button (click)="editarDetalhes();">Cancelar</button>
+            </div>
+            <button (click)="selectedProduct = null; isActive = null">Fechar</button> <!--Fechar container pop up X-->
+        </div>
+    </div>
+</div>
