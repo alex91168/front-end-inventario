@@ -4,7 +4,8 @@
 
 
 <div class="product-list">
-    <div class="product-box" *ngFor="let product of products"> 
+    <!--ngIf lista vazia.-->
+    <div class="product-box" *ngFor="let product of getProductList"> 
         <div class="img-product">
             <img [src]="product.img" alt="">
         </div>
@@ -39,6 +40,7 @@
                 <button>Salvar</button>
                 <button (click)="editarDetalhes();">Cancelar</button>
             </div>
+            <button (click)="deleteProduct(selectedProduct.id)">Deletar</button> <!--pop up de verificação-->
             <button (click)="selectedProduct = null; isActive = null">Fechar</button> <!--Fechar container pop up X-->
         </div>
     </div>

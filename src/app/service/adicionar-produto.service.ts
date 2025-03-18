@@ -23,4 +23,7 @@ export class AdicionarProdutoService {
     return this.http.get<any>(`${this.url}/services/types`);
   }
 
+  delete_product(id: number): Observable<{message: string}> {
+    return this.http.delete<any>(`${this.url}/${id}`);
+  }
 }

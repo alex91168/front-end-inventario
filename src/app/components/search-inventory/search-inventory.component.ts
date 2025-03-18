@@ -13,16 +13,14 @@ import { SharingDataService } from '../../service/estado/sharing-data.service';
   styleUrl: './search-inventory.component.scss'
 })
 export class SearchInventoryComponent implements OnInit{
+  constructor(
+    private formulario: FormBuilder, 
+    private sharingDataService: SharingDataService
+  ) {}
   adicionarProdutos_button: boolean = false;
   formularioProdutos!: FormGroup;
   productsType!: any;
-
-  constructor(
-    private formulario: FormBuilder, 
-    private adicionarProdutoService: AdicionarProdutoService,
-    private sharingDataService: SharingDataService
-  ) {}
-
+  
   ngOnInit(): void {
     this.formularioProdutos = this.formulario.group({
       name: ['', Validators.required],
@@ -32,12 +30,13 @@ export class SearchInventoryComponent implements OnInit{
       image: [''],
       description: ['']
     })
-    const validationApiResponse = this.sharingDataService.getApiResponse();
-    if(!validationApiResponse || validationApiResponse.length === 0) {this.GetProductsApi();}
-    this.GetTypesApi();
-  }
 
-  
+    this.sharingDataService.getProductType$.subscribe((data) => this.productsType = data);
+    if (!this.sharingDataService.getTypesHasData()){
+      this.sharingDataService.GetTypesApi();
+    }
+    console.log(this.productsType);
+  }
 
   formSubmit(): void {
     if (this.formularioProdutos.valid) {
@@ -53,35 +52,19 @@ export class SearchInventoryComponent implements OnInit{
     }
   }
 
-  AdicionarProdutoApi(produto: Produto): void {
-    this.adicionarProdutoService.add_product(produto).subscribe({
-      next: (data) => {
-        this.formularioProdutos.reset();
-        this.GetProductsApi();
-        console.log(data);
-      },
-      error: (err) => console.log(err)
-    })
-  }
-
-  GetProductsApi(): void {
-    this.adicionarProdutoService.get_all_products().subscribe({
-      next: (data) => {
-        this.sharingDataService.updateApiReponse(data);
-      },
-      error: (err) => console.log(err)
-    })
+  AdicionarProdutoApi(produto: Produto){
+    try {
+      this.sharingDataService.AdicionarProdutoApi(produto);
+      this.formularioProdutos.reset();
+      this.adicionarProdutos_button = false //Arrumar para error
+    }
+    catch (error) {
+      console.log(error);
+    }
   }
 
   GetTypesApi(): void {
-    this.adicionarProdutoService.get_all_types().subscribe({
-      next: (data) => {
-        this.productsType = data;
-        console.log('Tipos de cada produto', this.productsType)
-      },
-      error: (err) => {
-        console.log(err)
-      }
-    })
+    this.sharingDataService.GetTypesApi();
   }
+  
 }

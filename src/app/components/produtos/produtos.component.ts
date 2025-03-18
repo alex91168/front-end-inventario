@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import {  Component, OnInit } from '@angular/core';
 import { SharingDataService } from '../../service/estado/sharing-data.service';
 
 @Component({
@@ -10,156 +10,41 @@ import { SharingDataService } from '../../service/estado/sharing-data.service';
 })
 
 export class ProdutosComponent implements OnInit {
-  constructor( private sharingDataService: SharingDataService){}
-  apiResponse: any;
+  constructor( 
+    private sharingDataService: SharingDataService,
+  ){}
 
-  ngOnInit(): void {
-    this.sharingDataService.apiReponse$.subscribe({
-      next: (data) => this.apiResponse = data,
-      error: (err) => console.log(err)
-    })
-    console.log(this.apiResponse)
-  }
-  products = [
-    {
-      id: 20,
-      name: 'Caixa Treinador Avançado Pokémon Go - COPAG - Deck de Cartas',
-      vendas: 1300,
-      img: '/produto.webp',
-    },
-    {
-      id: 2,
-      name: 'Caixa Treinador Avançado Pokémon Go - COPAG - Deck de Cartas',
-      vendas: 1300,
-      img: '/produto.webp',
-    },
-    {
-      id: 3,
-      name: 'Caixa Treinador Avançado Pokémon Go - COPAG - Deck de Cartas',
-      vendas: 1300,
-      img: '/produto.webp',
-    },
-    {
-      id: 4,
-
-      name: 'Caixa Treinador Avançado Pokémon Go - COPAG - Deck de Cartas',
-      vendas: 1300,
-      img: '/produto.webp',
-    },
-    {
-      id: 1,
-      name: 'Caixa Treinador Avançado Pokémon Go - COPAG - Deck de Cartas',
-      vendas: 1300,
-      img: '/produto.webp',
-    },
-    {
-      id: 1,
-      name: 'Caixa Treinador Avançado Pokémon Go - COPAG - Deck de Cartas',
-      vendas: 1300,
-      img: '/produto.webp',
-    },
-    {
-      id: 1,
-      name: 'Caixa Treinador Avançado Pokémon Go - COPAG - Deck de Cartas',
-      vendas: 1300,
-      img: '/produto.webp',
-    },
-    {
-      id: 1,
-      name: 'Caixa Treinador Avançado Pokémon Go - COPAG - Deck de Cartas',
-      vendas: 1300,
-      img: '/produto.webp',
-    },
-    {
-      id: 1,
-      name: 'Caixa Treinador Avançado Pokémon Go - COPAG - Deck de Cartas',
-      vendas: 1300,
-      img: '/produto.webp',
-    },
-    {
-      id: 1,
-      name: 'Caixa Treinador Avançado Pokémon Go - COPAG - Deck de Cartas',
-      vendas: 1300,
-      img: '/produto.webp',
-    },
-    {
-      id: 1,
-      name: 'Caixa Treinador Avançado Pokémon Go - COPAG - Deck de Cartas',
-      vendas: 1300,
-      img: '/produto.webp',
-    },
-    {
-      id: 1,
-      name: 'Caixa Treinador Avançado Pokémon Go - COPAG - Deck de Cartas',
-      vendas: 1300,
-      img: '/produto.webp',
-    },
-    {
-      id: 1,
-      name: 'Caixa Treinador Avançado Pokémon Go - COPAG - Deck de Cartas',
-      vendas: 1300,
-      img: '/produto.webp',
-    },
-    {
-      id: 1,
-      name: 'Caixa Treinador Avançado Pokémon Go - COPAG - Deck de Cartas',
-      vendas: 1300,
-      img: '/produto.webp',
-    },
-    {
-      id: 1,
-      name: 'Caixa Treinador Avançado Pokémon Go - COPAG - Deck de Cartas',
-      vendas: 1300,
-      img: '/produto.webp',
-    },
-    {
-      id: 1,
-      name: 'Caixa Treinador Avançado Pokémon Go - COPAG - Deck de Cartas',
-      vendas: 1300,
-      img: '/produto.webp',
-    },
-    {
-      id: 1,
-      name: 'Caixa Treinador Avançado Pokémon Go - COPAG - Deck de Cartas',
-      vendas: 1300,
-      img: '/produto.webp',
-    },
-    {
-      id: 123,
-      name: 'Caixa Treinador Avançado Pokémon Go - COPAG - Deck de Cartas',
-      vendas: 1300,
-      img: '/produto.webp',
-    },
-    {
-      id: 221,
-      name: 'Caixa Treinador Avançado Pokémon Go - COPAG - Deck de Cartas',
-      vendas: 1300,
-      img: '/produto.webp',
-    },
-    {
-      id: 211,
-      name: 'Caixa Treinador Avançado Pokémon Go - COPAG - Deck de Cartas',
-      vendas: 1300,
-      img: '/produto.webp',
-    },
-  ]
-
+  getProductList: any[] = [];
   isActive: number | null = null;
   selectedProduct: any = null;
   isDetalhesActive: boolean = false;
+  deleteResponse!: string;
+  
+  ngOnInit(): void {
+    this.sharingDataService.getProductList$.subscribe((data) => this.getProductList = data);
+    if (!this.sharingDataService.getProductsHasData()){
+      this.sharingDataService.GetProductsApi();
+    }
+  }
+
   mostrarDetalhes(id: number) {
     if (this.isActive === id){
       this.isActive = null; 
       this.selectedProduct = null;
     } else {
       this.isActive = id;
-      this.selectedProduct = this.products.find(product => product.id === id);
+      this.selectedProduct = this.getProductList.find((product: any) => product.id === id);
     }
   }
 
   editarDetalhes() {
     this.isDetalhesActive = !this.isDetalhesActive;
   }
+
+  deleteProduct(id: number) {
+    this.sharingDataService.deleteProduct(id);
+  }
+
 
 }
 
