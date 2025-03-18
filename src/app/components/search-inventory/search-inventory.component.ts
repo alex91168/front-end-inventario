@@ -32,10 +32,12 @@ export class SearchInventoryComponent implements OnInit{
       image: [''],
       description: ['']
     })
-    this.GetProductsApi();
+    const validationApiResponse = this.sharingDataService.getApiResponse();
+    if(!validationApiResponse || validationApiResponse.length === 0) {this.GetProductsApi();}
     this.GetTypesApi();
   }
 
+  
 
   formSubmit(): void {
     if (this.formularioProdutos.valid) {

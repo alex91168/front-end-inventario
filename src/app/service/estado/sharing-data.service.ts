@@ -11,5 +11,8 @@ export class SharingDataService {
   updateApiReponse(data: any): void{
     this.apiResponse.next(data);
   }
-  
+
+  getApiResponse(): any{
+    return this.apiResponse.getValue();
+  }
 }
