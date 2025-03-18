@@ -3,6 +3,7 @@ import { Produto } from '../../models/produto';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AdicionarProdutoService } from '../../service/adicionar-produto.service';
+import { SharingDataService } from '../../service/estado/sharing-data.service';
 
 @Component({
   selector: 'app-search-inventory',
@@ -12,14 +13,14 @@ import { AdicionarProdutoService } from '../../service/adicionar-produto.service
   styleUrl: './search-inventory.component.scss'
 })
 export class SearchInventoryComponent implements OnInit{
-
-  adicionarProdutos: boolean = false;
+  adicionarProdutos_button: boolean = false;
   formularioProdutos!: FormGroup;
-  apiResponse: any;
+  productsType!: any;
 
   constructor(
     private formulario: FormBuilder, 
-    private adicionarProdutoService: AdicionarProdutoService
+    private adicionarProdutoService: AdicionarProdutoService,
+    private sharingDataService: SharingDataService
   ) {}
 
   ngOnInit(): void {
@@ -31,7 +32,10 @@ export class SearchInventoryComponent implements OnInit{
       image: [''],
       description: ['']
     })
+    this.GetProductsApi();
+    this.GetTypesApi();
   }
+
 
   formSubmit(): void {
     if (this.formularioProdutos.valid) {
@@ -47,16 +51,35 @@ export class SearchInventoryComponent implements OnInit{
     }
   }
 
-  AdicionarProdutos(){
-    this.adicionarProdutos = !this.adicionarProdutos
-  }
   AdicionarProdutoApi(produto: Produto): void {
     this.adicionarProdutoService.add_product(produto).subscribe({
       next: (data) => {
         this.formularioProdutos.reset();
+        this.GetProductsApi();
         console.log(data);
       },
       error: (err) => console.log(err)
+    })
+  }
+
+  GetProductsApi(): void {
+    this.adicionarProdutoService.get_all_products().subscribe({
+      next: (data) => {
+        this.sharingDataService.updateApiReponse(data);
+      },
+      error: (err) => console.log(err)
+    })
+  }
+
+  GetTypesApi(): void {
+    this.adicionarProdutoService.get_all_types().subscribe({
+      next: (data) => {
+        this.productsType = data;
+        console.log('Tipos de cada produto', this.productsType)
+      },
+      error: (err) => {
+        console.log(err)
+      }
     })
   }
 }

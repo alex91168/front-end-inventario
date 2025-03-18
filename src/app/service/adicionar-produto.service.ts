@@ -14,4 +14,13 @@ export class AdicionarProdutoService {
   add_product(produto: Produto): Observable<{ message: string }> {
     return this.http.post<{message: string}>(this.url, produto);
   }
+
+  get_all_products(): Observable<any> {
+    return this.http.get<any>(this.url);
+  }
+
+  get_all_types(): Observable<any> {
+    return this.http.get<any>(`${this.url}/services/types`);
+  }
+
 }

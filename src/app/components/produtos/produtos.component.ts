@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { SharingDataService } from '../../service/estado/sharing-data.service';
 
 @Component({
   selector: 'app-produtos',
@@ -8,7 +9,17 @@ import { Component } from '@angular/core';
   styleUrl: './produtos.component.scss'
 })
 
-export class ProdutosComponent {
+export class ProdutosComponent implements OnInit {
+  constructor( private sharingDataService: SharingDataService){}
+  apiResponse: any;
+
+  ngOnInit(): void {
+    this.sharingDataService.apiReponse$.subscribe({
+      next: (data) => this.apiResponse = data,
+      error: (err) => console.log(err)
+    })
+    console.log(this.apiResponse)
+  }
   products = [
     {
       id: 20,
