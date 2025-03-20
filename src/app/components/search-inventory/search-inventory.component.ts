@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Produto } from '../../models/produto';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { AdicionarProdutoService } from '../../service/adicionar-produto.service';
 import { SharingDataService } from '../../service/estado/sharing-data.service';
 
 @Component({
@@ -20,6 +19,7 @@ export class SearchInventoryComponent implements OnInit{
   adicionarProdutos_button: boolean = false;
   formularioProdutos!: FormGroup;
   productsType!: any;
+  messagePopUp: string = '';
   
   ngOnInit(): void {
     this.formularioProdutos = this.formulario.group({
@@ -52,11 +52,12 @@ export class SearchInventoryComponent implements OnInit{
     }
   }
 
-  AdicionarProdutoApi(produto: Produto){
+  AdicionarProdutoApi(produto: Produto): void {
     try {
-      this.sharingDataService.AdicionarProdutoApi(produto);
+      this.sharingDataService.AdicionarProdutoApi(produto, 25); // Definir variavel global limitMax
       this.formularioProdutos.reset();
-      this.adicionarProdutos_button = false //Arrumar para error
+      this.sharingDataService.messagePopUp$.subscribe({next: ( data )=> this.messagePopUp = data})
+      //this.adicionarProdutos_button = false //Arrumar para error
     }
     catch (error) {
       console.log(error);

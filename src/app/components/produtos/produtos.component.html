@@ -1,47 +1,111 @@
-<div class="title">
+<div class="title product-list-title">
     <h2>Lista de produtos</h2>
+    <div class="limit-view">
+        <p>Mostrar produtos:</p>
+        <div class="limit">
+            <span class="limit-span" (click)="setLimitView(limitMin)" [class.active]="currentLimit === limitMin">{{limitMin}}</span>
+            <span class="limit-span" (click)="setLimitView(limitMax)" [class.active]="currentLimit === limitMax">{{limitMax}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="message-popup" *ngIf="messagePopUp.length > 0">
+    <span>{{messagePopUp}}</span>
+</div>
+<div class="backToTop">
+    <span title="Voltar ao inicio" (click)="backToTop()">
+        <i class="bi bi-arrow-up"></i>
+    </span>
 </div>
 
 
 <div class="product-list">
-    <!--ngIf lista vazia.-->
-    <div class="product-box" *ngFor="let product of getProductList"> 
-        <div class="img-product">
-            <img [src]="product.img" alt="">
+    <div class="products-container">
+        <div *ngIf="!getProductList">
+            <span>Nenhum produto foi encontrado...</span>
         </div>
-        <div class="info-product">
-            <div>
-                <p>{{ product.name }}</p>
+        <div class="product-box" *ngFor="let product of getProductList"> 
+            <div class="img-product">
+                <img [src]="product.img" alt="">
             </div>
-            <div class="product-popup">
-                <button (click)="mostrarDetalhes(product.id)">Mostrar mais detalhes</button>
+            <div class="info-product">
+                <div>
+                    <p>{{ product.name }}</p>
+                </div>
+                <div class="product-popup">
+                    <button (click)="mostrarDetalhes(product.id)">Mostrar mais detalhes</button>
+                </div>
+            </div>
+    
+            <div class="product-details" [class.active]="isActive === product.id" *ngIf="selectedProduct">
+                <div class="title product-details-title"> 
+                    <h2>Detalhes do produto</h2> 
+                    <div class="close-product-details" (click)="fecharDetalhes()">
+                        <i class="bi bi-x"></i>
+                    </div>
+                </div> 
+                <div class="details" [class.active]="isDetalhesActive">
+                    <div class="details-list">
+                        <span>Imagem:</span>
+                        <span>Id: {{ selectedProduct.id }}</span>
+                        <span>Nome: {{ selectedProduct.name }}</span>
+                        <span>Preço: {{ selectedProduct.price }}</span>
+                        <span>Quantidade: {{ selectedProduct.quantity }}</span>
+                        <span>Tipo: {{ selectedProduct.type }}</span>
+                        <span>Descrição: {{ selectedProduct.description }}</span>
+                    </div>
+                    <div class="options-details">
+                        <div class="edit-product" title="Editar produto" (click)="editarDetalhes()">
+                            <i class="bi bi-pencil-fill"></i>
+                        </div>
+                        <div class="delete-product" title="Deletar produto" (click)="deletePopUp = true">
+                            <i class="bi bi-trash3-fill"></i>
+                        </div>
+                        <div class="delete-product-popup" [class.active]="deletePopUp">
+                            <span>Tem certeza que deseja deletar esse produto?</span>
+                            <div class="delete-buttons">
+                                <button (click)="deleteProduct(selectedProduct.id)">Deletar</button>
+                                <button (click)="deletePopUp = false">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="editar" [class.active]="isDetalhesActive">
+                    <form *ngIf="formularioProdutos" [formGroup]="formularioProdutos!" (ngSubmit)="submitForm(selectedProduct.id)">
+                        <div>
+                            <label for="name">Nome do produto</label>
+                            <input id="name" formControlName="name">
+                        </div>
+                        <div>
+                            <label for="price">Valor unitario</label>
+                            <input id="price" formControlName="price">
+                        </div>
+                        <div>
+                            <label for="quantity">Quantidade</label>
+                            <input id="quantity" formControlName="quantity">
+                        </div>
+                        <div>
+                            <label for="type">Tipo</label>
+                            <input id="type" formControlName="type">
+                        </div>
+                        <div>
+                            <label for="description">Descrição</label>
+                            <input id="description" formControlName="description">
+                        </div>
+                        <div class="form-buttons">
+                            <button type="submit">Salvar</button>
+                            <button (click)="isDetalhesActive= false ">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
+    </div>
 
-        <div class="product-details" [class.active]="isActive === product.id" *ngIf="selectedProduct">
-            <div class="title product-details"> 
-                <h2>Detalhes do produto</h2> 
-            </div> 
-            <div class="details" [class.active]="isDetalhesActive">
-                <div>
-                    <p>Id: {{ selectedProduct.id }}</p>
-                    <i class="bi bi-pencil"></i>
-                </div>
-                <div>
-                    <p>Nome:{{ selectedProduct.name }}</p>
-                    <i class="bi bi-pencil" (click)="editarDetalhes();"></i>
-                </div>
-            </div>
-            <div class="editar" [class.active]="isDetalhesActive">
-                <div>
-                    <label for="name">Nome:</label>
-                    <input type="text" [value]="selectedProduct.name">
-                </div>
-                <button>Salvar</button>
-                <button (click)="editarDetalhes();">Cancelar</button>
-            </div>
-            <button (click)="deleteProduct(selectedProduct.id)">Deletar</button> <!--pop up de verificação-->
-            <button (click)="selectedProduct = null; isActive = null">Fechar</button> <!--Fechar container pop up X-->
+    <div class="pagination" >
+        <div *ngFor="let page of totalPages" class="page-box" [class.active]="page === currentPage" (click)="getProductsList(page)">
+            <span>{{page}}</span>
         </div>
     </div>
 </div>
+

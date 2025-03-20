@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { AdicionarProdutoService } from '../adicionar-produto.service';
 import { Produto } from '../../models/produto';
 
@@ -7,14 +7,16 @@ import { Produto } from '../../models/produto';
   providedIn: 'root'
 })
 export class SharingDataService {
+  constructor (private adicionarProdutoService: AdicionarProdutoService){}
   private productListSubject = new BehaviorSubject<any[]>([]);
   private productTypeSubject = new BehaviorSubject<any[]>([]);
-  constructor (private adicionarProdutoService: AdicionarProdutoService){}
+  private messagePopUpSubject = new BehaviorSubject<string>('');
   getProductList$ = this.productListSubject.asObservable();
   getProductType$ = this.productTypeSubject.asObservable();
+  messagePopUp$= this.messagePopUpSubject.asObservable();
 
-  GetProductsApi(): void {
-    this.adicionarProdutoService.get_all_products().subscribe({
+  GetProductsApi(page: number, limit: number): void {
+    this.adicionarProdutoService.get_all_products(page, limit).subscribe({
       next: (data) => this.productListSubject.next(data),
       error: (err) => this.productListSubject.next(err)
     })
@@ -29,16 +31,39 @@ export class SharingDataService {
   }
   getTypesHasData(): boolean { return this.productTypeSubject.getValue().length > 0 }
 
-  AdicionarProdutoApi(produto: Produto): void {
+  AdicionarProdutoApi(produto: Produto , currentLimit: number): void {
     this.adicionarProdutoService.add_product(produto).subscribe({
-      next: () => this.GetProductsApi(),
+      next: (data) => {
+        this.GetProductsApi(1, currentLimit)
+        this.messagePopUpSubject.next(data.message);
+        this.clearMessagePopUp(this.messagePopUpSubject)
+      },
     })
   }
 
-  deleteProduct(id: number): void {
+  deleteProduct(id: number, currentLimit: number): void {
     this.adicionarProdutoService.delete_product(id).subscribe({
-      next: () => this.GetProductsApi(),
+      next: (data) => {
+        this.GetProductsApi(1, currentLimit),
+        this.messagePopUpSubject.next(data.message),
+        this.clearMessagePopUp(this.messagePopUpSubject);
+      },
     })
   }
 
+  updateProduct(id: number, produto: object, currentLimit: number): void {
+    this.adicionarProdutoService.update_product(id, produto).subscribe({
+      next: (data) => {
+        this.GetProductsApi(1, currentLimit)
+        this.messagePopUpSubject.next(data.message),
+        this.clearMessagePopUp(this.messagePopUpSubject);
+      }, 
+    });
+  }
+
+  clearMessagePopUp(subject: any): void {
+    setTimeout(() => {
+      subject.next('');
+    }, 3000);
+  }
 }

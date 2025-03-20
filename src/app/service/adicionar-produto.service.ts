@@ -15,8 +15,8 @@ export class AdicionarProdutoService {
     return this.http.post<{message: string}>(this.url, produto);
   }
 
-  get_all_products(): Observable<any> {
-    return this.http.get<any>(this.url);
+  get_all_products(page: number, limit: number): Observable<any> {
+    return this.http.get<any>(`${this.url}/pagination/${page};${limit}`);
   }
 
   get_all_types(): Observable<any> {
@@ -24,6 +24,10 @@ export class AdicionarProdutoService {
   }
 
   delete_product(id: number): Observable<{message: string}> {
-    return this.http.delete<any>(`${this.url}/${id}`);
+    return this.http.delete<{message: string}>(`${this.url}/${id}`);
+  }
+
+  update_product(id: number, produto: object): Observable<{message: string}> {
+    return this.http.put<{message: string}>(`${this.url}/update/${id}`, produto);
   }
 }

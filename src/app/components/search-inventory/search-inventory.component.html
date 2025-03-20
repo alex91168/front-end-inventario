@@ -1,6 +1,9 @@
 <div class="title">
     <h2>Pesquisar</h2>
 </div>
+<div class="message-popup" *ngIf="messagePopUp.length > 0"> <!---->
+    <span>{{messagePopUp}}</span>
+</div>
 
 <div class="seach-input">
     <input type="search" placeholder="Pesquisar por produto">
