@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Produto } from '../../models/produto';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SharingDataService } from '../../service/estado/sharing-data.service';
 
 @Component({
   selector: 'app-search-inventory',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, FormsModule],
   templateUrl: './search-inventory.component.html',
   styleUrl: './search-inventory.component.scss'
 })
@@ -20,9 +20,10 @@ export class SearchInventoryComponent implements OnInit{
   formularioProdutos!: FormGroup;
   productsType!: any;
   messagePopUp: string = '';
+  search: string = '';
   
   ngOnInit(): void {
-    this.formularioProdutos = this.formulario.group({
+      this.formularioProdutos = this.formulario.group({
       name: ['', Validators.required],
       price: ['', [Validators.required, Validators.min(0)]],
       quantity: ['', [Validators.required, Validators.min(1)]],
@@ -62,6 +63,10 @@ export class SearchInventoryComponent implements OnInit{
     catch (error) {
       console.log(error);
     }
+  }
+
+  submitSearch(): void {
+    this.sharingDataService.GetProductsApi(1, 25, [], this.search);
   }
 
   GetTypesApi(): void {

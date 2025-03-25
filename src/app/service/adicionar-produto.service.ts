@@ -15,8 +15,8 @@ export class AdicionarProdutoService {
     return this.http.post<{message: string}>(this.url, produto);
   }
 
-  get_all_products(page: number, limit: number): Observable<any> {
-    return this.http.get<any>(`${this.url}/pagination/${page};${limit}`);
+  get_all_products(page: number, limit: number, type?: string[], search?: string): Observable<any> {
+    return this.http.get<any>(`${this.url}/pagination/${page};${limit}?type=${type}&search=${search}`);
   }
 
   get_all_types(): Observable<any> {

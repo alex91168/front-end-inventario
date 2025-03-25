@@ -29,7 +29,7 @@ export class ProdutosComponent implements OnInit {
   formularioProdutos!: FormGroup | null;
   deletePopUp: boolean = false;
   messagePopUp: string = '';
-  
+  searchInputValue: string = '';
   ngOnInit(): void {
     this.limitMax = 50; this.limitMin = 25;
     this.currentLimit = this.limitMin;
@@ -37,6 +37,7 @@ export class ProdutosComponent implements OnInit {
     if (!this.sharingDataService.getProductsHasData()){
       this.sharingDataService.GetProductsApi(1, this.limitMin);
     }
+    this.sharingDataService.productBeingSearch$.subscribe((data) => this.searchInputValue = data);
   }
 
   backToTop(){

@@ -11,13 +11,17 @@ export class SharingDataService {
   private productListSubject = new BehaviorSubject<any[]>([]);
   private productTypeSubject = new BehaviorSubject<any[]>([]);
   private messagePopUpSubject = new BehaviorSubject<string>('');
+  private productSearchTitleSubject = new BehaviorSubject<string>('');
   getProductList$ = this.productListSubject.asObservable();
   getProductType$ = this.productTypeSubject.asObservable();
   messagePopUp$= this.messagePopUpSubject.asObservable();
-
-  GetProductsApi(page: number, limit: number): void {
-    this.adicionarProdutoService.get_all_products(page, limit).subscribe({
-      next: (data) => this.productListSubject.next(data),
+  productBeingSearch$ = this.productSearchTitleSubject.asObservable();
+  
+  GetProductsApi(page: number, limit: number, type?: string[], search?: string): void {
+    if (!type) type = []; if (!search) search = '';
+    this.productSearchTitleSubject.next(search);
+    this.adicionarProdutoService.get_all_products(page, limit, type, search).subscribe({
+      next: (data) => {this.productListSubject.next(data)},
       error: (err) => this.productListSubject.next(err)
     })
   }
@@ -34,7 +38,7 @@ export class SharingDataService {
   AdicionarProdutoApi(produto: Produto , currentLimit: number): void {
     this.adicionarProdutoService.add_product(produto).subscribe({
       next: (data) => {
-        this.GetProductsApi(1, currentLimit)
+        this.GetProductsApi(1, currentLimit);
         this.messagePopUpSubject.next(data.message);
         this.clearMessagePopUp(this.messagePopUpSubject)
       },
@@ -44,8 +48,8 @@ export class SharingDataService {
   deleteProduct(id: number, currentLimit: number): void {
     this.adicionarProdutoService.delete_product(id).subscribe({
       next: (data) => {
-        this.GetProductsApi(1, currentLimit),
-        this.messagePopUpSubject.next(data.message),
+        this.GetProductsApi(1, currentLimit);
+        this.messagePopUpSubject.next(data.message);
         this.clearMessagePopUp(this.messagePopUpSubject);
       },
     })

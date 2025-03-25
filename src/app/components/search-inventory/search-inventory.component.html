@@ -6,8 +6,8 @@
 </div>
 
 <div class="seach-input">
-    <input type="search" placeholder="Pesquisar por produto">
-    <button>Pesquisar</button>
+    <input type="search" placeholder="Pesquisar por produto" [(ngModel)]="search" (keyup.enter)="submitSearch()">
+    <button (click)="submitSearch()">Pesquisar</button>
 </div>
 
 <div class="filtros">
